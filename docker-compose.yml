@@ -1,0 +1,45 @@
+
+services:
+  couchbase-server:
+    build:
+      context: ./couchbase-server
+    ports:
+      - "8091-8094:8091-8094"
+      - "11210:11210"
+    environment:
+      - CLUSTER_NAME=todo-cluster
+      - COUCHBASE_ADMINISTRATOR_USERNAME=Administrator
+      - COUCHBASE_ADMINISTRATOR_PASSWORD=password
+      - COUCHBASE_BUCKET=ToDo
+      - COUCHBASE_BUCKET_RAMSIZE=100
+      - COUCHBASE_RBAC_USERNAME=todo
+      - COUCHBASE_RBAC_PASSWORD=password
+      - COUCHBASE_RBAC_NAME=todo
+      - COUCHBASE_RAM_SIZE=1024
+      - COUCHBASE_EVENTING_RAM_SIZE=256
+      - COUCHBASE_INDEX_RAM_SIZE=256
+    hostname: couchbase-server
+    container_name: couchbase-server
+    working_dir: /opt/couchbase
+    stdin_open: true
+    tty: true
+    networks:
+      - workshop
+    entrypoint: [""]
+    command: sh -c "/opt/couchbase/init/init-couchbase.sh"
+
+  todo-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - couchbase-server
+    networks:
+      - workshop
+
+
+networks:
+  workshop:
+    driver: bridge
