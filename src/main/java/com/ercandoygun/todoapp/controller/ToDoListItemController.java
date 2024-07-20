@@ -2,7 +2,6 @@ package com.ercandoygun.todoapp.controller;
 
 import com.ercandoygun.todoapp.model.ToDoListItem;
 import com.ercandoygun.todoapp.service.ToDoListItemService;
-import com.ercandoygun.todoapp.service.ToDoListItemServiceImpl;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

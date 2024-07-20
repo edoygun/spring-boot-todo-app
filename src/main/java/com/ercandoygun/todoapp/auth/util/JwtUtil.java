@@ -1,6 +1,5 @@
 package com.ercandoygun.todoapp.auth.util;
 
-import com.ercandoygun.todoapp.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,7 +15,7 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 1;
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60;
 
     public String generateToken(String username) {
         return Jwts.builder()
@@ -50,9 +49,5 @@ public class JwtUtil {
 
     private boolean isTokenExpired(String token) {
         return extractAllClaims(token).getExpiration().before(new Date());
-    }
-
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
     }
 }

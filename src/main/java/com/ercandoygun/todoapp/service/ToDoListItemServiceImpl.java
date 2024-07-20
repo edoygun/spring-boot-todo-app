@@ -3,7 +3,6 @@ package com.ercandoygun.todoapp.service;
 import com.ercandoygun.todoapp.model.ToDoListItem;
 import com.ercandoygun.todoapp.repository.ToDoListItemRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
