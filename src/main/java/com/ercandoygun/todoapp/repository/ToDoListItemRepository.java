@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ToDoListItemRepository extends CouchbaseRepository<ToDoListItem, String> {
-    List<ToDoListItem> findByUserId(Long userId);
+    List<ToDoListItem> findByUserId(String userId);
 }

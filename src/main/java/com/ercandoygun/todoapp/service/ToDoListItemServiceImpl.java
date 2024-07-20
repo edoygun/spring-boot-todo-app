@@ -20,7 +20,7 @@ public class ToDoListItemServiceImpl implements ToDoListItemService {
     }
 
     @Override
-    public List<ToDoListItem> findByUserId(Long userId) {
+    public List<ToDoListItem> findByUserId(String userId) {
         return toDoListItemRepository.findByUserId(userId);
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ToDoListItemService {
     List<ToDoListItem> findAll();
-    List<ToDoListItem> findByUserId(Long userId);
+    List<ToDoListItem> findByUserId(String userId);
     ToDoListItem save(ToDoListItem toDoListItem);
     ToDoListItem markAsCompleted(String id);
     void delete(String id);

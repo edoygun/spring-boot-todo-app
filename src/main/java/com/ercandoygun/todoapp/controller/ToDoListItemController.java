@@ -3,7 +3,7 @@ package com.ercandoygun.todoapp.controller;
 import com.ercandoygun.todoapp.model.ToDoListItem;
 import com.ercandoygun.todoapp.service.ToDoListItemService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class ToDoListItemController {
 
     @GetMapping("/by-user")
     @ResponseStatus(HttpStatus.OK)
-    public List<ToDoListItem> getAllToDoListItemsByUser(@RequestParam @NotNull(message = "User ID is mandatory") Long userId) {
+    public List<ToDoListItem> getAllToDoListItemsByUser(@RequestParam @NotBlank(message = "User ID is mandatory") String userId) {
         log.info("Fetching ToDo list items for user id: {}", userId);
         return toDoListItemService.findByUserId(userId);
     }

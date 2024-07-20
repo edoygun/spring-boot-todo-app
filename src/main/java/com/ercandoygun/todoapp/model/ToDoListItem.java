@@ -33,7 +33,7 @@ public class ToDoListItem {
 
     @Field
     @NotNull(message = "User ID is mandatory.")
-    private Long userId;
+    private String userId;
 
     @Field
     private Date createdDate = new Date();

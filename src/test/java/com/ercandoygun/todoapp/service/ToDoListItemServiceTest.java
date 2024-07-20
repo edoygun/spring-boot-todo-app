@@ -26,7 +26,7 @@ public class ToDoListItemServiceTest {
     @InjectMocks
     private ToDoListItemServiceImpl toDoListItemService;
 
-    private ToDoListItem createToDoListItem(String description, boolean completed, Long userId) {
+    private ToDoListItem createToDoListItem(String description, boolean completed, String userId) {
         ToDoListItem item = new ToDoListItem();
         item.setDescription(description);
         item.setCompleted(completed);
@@ -37,8 +37,8 @@ public class ToDoListItemServiceTest {
     @Test
     public void findAll_ReturnsAllItems() {
         List<ToDoListItem> expectedItems = Arrays.asList(
-                createToDoListItem("Task 1", false, 101L),
-                createToDoListItem( "Task 2", true, 102L)
+                createToDoListItem("Task 1", false, "101"),
+                createToDoListItem( "Task 2", true, "102")
         );
 
         when(toDoListItemRepository.findAll()).thenReturn(expectedItems);
@@ -53,7 +53,7 @@ public class ToDoListItemServiceTest {
 
     @Test
     public void findByUserId_ReturnsItemsForUser() {
-        Long userId = 101L;
+        String  userId = "101";
         List<ToDoListItem> expectedItems = Arrays.asList(createToDoListItem("User 101 Task", false, userId));
         when(toDoListItemRepository.findByUserId(userId)).thenReturn(expectedItems);
 
@@ -66,15 +66,15 @@ public class ToDoListItemServiceTest {
 
     @Test
     public void save_SavesAndReturnsItem() {
-        ToDoListItem newItem = createToDoListItem( "New Task", false, 103L);
-        ToDoListItem savedItem = createToDoListItem( "New Task", false, 103L);
+        ToDoListItem newItem = createToDoListItem( "New Task", false, "103");
+        ToDoListItem savedItem = createToDoListItem( "New Task", false, "103");
         when(toDoListItemRepository.save(newItem)).thenReturn(savedItem);
 
         ToDoListItem result = toDoListItemService.save(newItem);
 
         assertNotNull(result);
         assertEquals("New Task", result.getDescription());
-        assertEquals(103L, result.getUserId());
+        assertEquals("103", result.getUserId());
     }
 
     @Test
