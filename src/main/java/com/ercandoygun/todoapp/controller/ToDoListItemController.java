@@ -43,4 +43,18 @@ public class ToDoListItemController {
         ToDoListItem createdItem = toDoListItemService.save(toDoListItem);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdItem);
     }
+
+    @PutMapping("/complete")
+        public ResponseEntity<ToDoListItem> completeToDoListItem(@RequestParam String id) {
+        ToDoListItem updatedItem = toDoListItemService.markAsCompleted(id);
+        log.info("Marked ToDo list item as completed: {}", id);
+        return ResponseEntity.ok(updatedItem);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteToDoListItem(@RequestParam String id) {
+        toDoListItemService.delete(id);
+        log.info("Deleted ToDo list item: {}", id);
+        return ResponseEntity.ok().build();
+    }
 }

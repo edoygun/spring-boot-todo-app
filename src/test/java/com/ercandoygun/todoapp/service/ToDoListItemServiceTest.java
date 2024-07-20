@@ -1,5 +1,6 @@
 package com.ercandoygun.todoapp.service;
 
+import com.ercandoygun.todoapp.exception.ResourceNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -8,6 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -73,5 +75,36 @@ public class ToDoListItemServiceTest {
         assertNotNull(result);
         assertEquals("New Task", result.getDescription());
         assertEquals(103L, result.getUserId());
+    }
+
+    @Test
+    void markAsCompleted_ItemExists_ItemMarkedCompleted() {
+        ToDoListItem item = new ToDoListItem();
+        item.setId("1");
+        item.setCompleted(false);
+        when(toDoListItemRepository.findById("1")).thenReturn(Optional.of(item));
+        when(toDoListItemRepository.save(any(ToDoListItem.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        ToDoListItem updatedItem = toDoListItemService.markAsCompleted("1");
+
+        assertTrue(updatedItem.isCompleted());
+        verify(toDoListItemRepository).save(item);
+    }
+
+    @Test
+    void markAsCompleted_ItemDoesNotExist_ThrowsException() {
+        when(toDoListItemRepository.findById("1")).thenReturn(Optional.empty());
+
+        assertThrows(ResourceNotFoundException.class, () -> toDoListItemService.markAsCompleted("1"));
+    }
+
+    @Test
+    void delete_ItemExists_ItemDeleted() {
+        ToDoListItem item = new ToDoListItem();
+        item.setId("1");
+
+        toDoListItemService.delete("1");
+
+        verify(toDoListItemRepository).deleteById("1");
     }
 }

@@ -8,4 +8,6 @@ public interface ToDoListItemService {
     List<ToDoListItem> findAll();
     List<ToDoListItem> findByUserId(Long userId);
     ToDoListItem save(ToDoListItem toDoListItem);
+    ToDoListItem markAsCompleted(String id);
+    void delete(String id);
 }
